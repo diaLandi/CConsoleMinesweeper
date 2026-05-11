@@ -4,6 +4,5 @@
 #include <Windows.h>
 
 int main(){
-    int testVariable;
-    int testVariable2;
+    
 }
