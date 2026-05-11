@@ -4,5 +4,5 @@
 #include <Windows.h>
 
 int main(){
-
+    printf("Hello World!");
 }
