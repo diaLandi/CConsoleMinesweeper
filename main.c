@@ -3,7 +3,7 @@
 #include <time.h>
 #include <Windows.h>
 
-//https://prod.liveshare.vsengsaas.visualstudio.com/join?E5D8492EA66A40765A5F21CD0E7FB4BF7694
+//https://prod.liveshare.vsengsaas.visualstudio.com/join?93F31F49BBC3E53B62319A678D0F7F0F41DE
 
 int main(){
     printf("");
