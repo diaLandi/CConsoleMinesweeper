@@ -3,8 +3,8 @@
 #include <time.h>
 #include <Windows.h>
 
-#define GAME_FIELD_HEIGHT 16
-#define GAME_FIELD_LEN 16
+#include "printing.h"
+
 #define MINE_COUNT 40
 
 int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
@@ -29,27 +29,11 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
     return counter;
 }
 
-void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
-    printf("+---------------------------------------------------------------+\n");
+void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
+    system("cls");
 
-    for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
-        for(int j = 0; j < GAME_FIELD_LEN; j++){
-            printf("| %c ", gameField[j][i]);
-            if(j == GAME_FIELD_LEN - 1){
-                printf("|\n");
-            }
-        }
-
-        if(i < GAME_FIELD_HEIGHT - 1){
-            printf("+");
-                for(int j = 0; j < GAME_FIELD_LEN; j++){
-                    printf("---+");
-                }
-            printf("\n");
-        }
-    }
-
-    printf("+---------------------------------------------------------------+\n");
+    printMinesweeper();
+    printFieldUser(gameField);
 }
 
 int menu(){
@@ -73,10 +57,6 @@ int menu(){
     return fieldSize;
 }
 
-void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
-    
-}
-
 void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingLetter, int sizeArrayX, int sizeArrayY){
     for(int i = 0; i < sizeArrayX; i++){
         for(int j = 0; j < sizeArrayY; j++){
@@ -86,9 +66,10 @@ void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingL
 }
 
 int main(){
+    srand(time(NULL));
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
 
     firstInitArray(gameField, '?', GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
-    printFieldUser(gameField);
+    firstMove(gameField);
 }
