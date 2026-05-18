@@ -30,22 +30,26 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
 }
 
 void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
-    printf("+-------------------------------+\n");
+    printf("+---------------------------------------------------------------+\n");
 
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
             printf("| %c ", gameField[j][i]);
-            if(j = GAME_FIELD_LEN - 1){
+            if(j == GAME_FIELD_LEN - 1){
                 printf("|\n");
             }
         }
 
         if(i < GAME_FIELD_HEIGHT - 1){
-            printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
+            printf("+");
+                for(int j = 0; j < GAME_FIELD_LEN; j++){
+                    printf("---+");
+                }
+            printf("\n");
         }
     }
 
-    printf("+-------------------------------+\n");
+    printf("+---------------------------------------------------------------+\n");
 }
 
 int menu(){
@@ -73,8 +77,18 @@ void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     
 }
 
+void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingLetter, int sizeArrayX, int sizeArrayY){
+    for(int i = 0; i < sizeArrayX; i++){
+        for(int j = 0; j < sizeArrayY; j++){
+            array[i][j] = initingLetter;
+        }
+    }
+}
+
 int main(){
-    char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT] = {'0'};
+    char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
+
+    firstInitArray(gameField, '?', GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
     printFieldUser(gameField);
 }
