@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <Windows.h>
+#include <conio.h>
+#include <windows.h>
+#include <conio.h>
 
 #include "printing.h"
 
 #define MINE_COUNT 40
+#define ARROW_UP 72
+#define ARROW_DOWN 80
+#define ARROW_RIGHT 77
+#define ARROW_LEFT 75
+#define ENTER_KEY 13
 
 int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
     int counter = 0;
@@ -29,11 +36,32 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
     return counter;
 }
 
+void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int positionX, int positionY){
+    int button;
+
+    do{
+        system("cls");
+        printFieldUser(gameField, positionX, positionY);
+        button = _getch();
+
+        if(button == ARROW_LEFT && positionX > 0){
+            positionX--;
+        } else if(button == ARROW_UP && positionY > 0){
+            positionY--;
+        } else if(button == ARROW_RIGHT && positionX < GAME_FIELD_LEN - 1){
+            positionX++;
+        } else if(button == ARROW_DOWN && positionY < GAME_FIELD_HEIGHT - 1){
+            positionY++;
+        }
+
+    } while(button != ENTER_KEY);
+}
+
 void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     system("cls");
 
     printMinesweeper();
-    printFieldUser(gameField);
+    moveInField(gameField, GAME_FIELD_LEN / 2, GAME_FIELD_HEIGHT / 2);
 }
 
 int menu(){
