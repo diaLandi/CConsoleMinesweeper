@@ -10,7 +10,47 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
             if(cursorPositionX == j && cursorPositionY == i){
                 printf("| \033[1;35m%c\033[0m ", gameField[j][i]);
             } else{
+                switch (gameField[j][i]){
+                case '0':
+                    printf("| \x1b[90m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '1':
+                    printf("| \x1b[34m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '2':
+                    printf("| \x1b[32m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '3':
+                    printf("| \x1b[31m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '4':
+                    printf("| \x1b[35m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '5':
+                    printf("| \x1b[33m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '6':
+                    printf("| \x1b[36m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '7':
+                    printf("| \x1b[30m%c\033[0m ", gameField[j][i]);
+                    break;
+
+                case '8':
+                    printf("| \x1b[90m%c\033[0m ", gameField[j][i]);
+                    break;
+                
+                default:
                 printf("| %c ", gameField[j][i]);
+                    break;
+                }
             }
             if(j == GAME_FIELD_LEN - 1){
                 printf("|\n");
