@@ -58,11 +58,11 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
         }
 
         if(i < GAME_FIELD_HEIGHT - 1){
-            printf("+");
-                for(int j = 0; j < GAME_FIELD_LEN; j++){
-                    printf("---+");
-                }
-            printf("\n");
+            printf("|");
+            for(int j = 0; j < GAME_FIELD_LEN - 1; j++){
+                printf("---+");
+            }
+            printf("---|\n");
         }
     }
 
