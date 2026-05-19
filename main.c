@@ -1,33 +1,14 @@
-#include <stdio.h>
+#include <conio.h>
+#include <locale.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
-#include <conio.h>
 #include <windows.h>
-#include <conio.h>
 
 #include "printing.h"
+#include "init.h"
 
 #define MINE_COUNT 40
-#define ARROW_UP 72
-#define ARROW_DOWN 80
-#define ARROW_RIGHT 77
-#define ARROW_LEFT 75
-#define ENTER_KEY 13
-
-static void enableAnsi(void){
-    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    DWORD dwMode = 0;
-
-    if(hOut == INVALID_HANDLE_VALUE){
-        return;
-    }
-
-    if(!GetConsoleMode(hOut, &dwMode)){
-        return;
-    }
-
-    SetConsoleMode(hOut, dwMode | ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-}
 
 int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
     int counter = 0;
@@ -41,8 +22,12 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
             int x = indexX + i;
             int y = indexY + j;
 
-            if(x < 0 || x >= sizeX || y < 0 || y >= sizeY) continue;
-            if(i == 0 && j == 0) continue; // don't count the center cell
+            if(x < 0 || x >= sizeX || y < 0 || y >= sizeY){
+                continue;
+            }
+            if(i == 0 && j == 0){
+                continue;
+            }
             if(gameField[x][y] == '9'){
                 counter++;
             }
@@ -149,7 +134,7 @@ void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingL
 int main(){
     srand(time(NULL));
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
-
+    int lost = 0;
     enableAnsi();
 
     firstInitArray(gameField, '?', GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
@@ -157,7 +142,11 @@ int main(){
     firstMove(gameField);
 
     printFieldUser(gameField, -1, -1);
-
     refreshBombsOnField(gameField);
-    printFieldUser(gameField, -1, -1);
+    
+    do{
+        printFieldUser(gameField, -1, -1);
+
+        lost = 1; //later only after move, if on bomb
+    }while(lost == 0);
 }
