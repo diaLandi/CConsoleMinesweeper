@@ -4,7 +4,7 @@
 
 #include "init.h"
 
-static void enableAnsi(void){
+void enableAnsi(void){
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
 
