@@ -1,7 +1,3 @@
-#include <conio.h>
-#include <locale.h>
-#include <windows.h>
-
 #include "init.h"
 
 void enableAnsi(void){

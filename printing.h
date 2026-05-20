@@ -1,6 +1,8 @@
 #ifndef PRINTING
 #define PRINTING
 
+#include <stdio.h>
+
 #define GAME_FIELD_HEIGHT 16
 #define GAME_FIELD_LEN 16
 

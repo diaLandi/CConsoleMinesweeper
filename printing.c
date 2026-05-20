@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "printing.h"
 
 void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY){
