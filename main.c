@@ -8,8 +8,6 @@
 #include "printing.h"
 #include "init.h"
 
-#define MINE_COUNT 40
-
 int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
     int counter = 0;
 
@@ -60,21 +58,6 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
     } while(button != ENTER_KEY);
 }
 
-void generateField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int firstPositionX, int firstPositionY){
-    int randX;
-    int randY;
-    int index = 0;
-    while(index < MINE_COUNT){
-        randX = rand() % GAME_FIELD_LEN;
-        randY = rand() % GAME_FIELD_HEIGHT;
-
-        if(gameField[randX][randY] != '9' && !(randX == firstPositionX && randY == firstPositionY)){
-            gameField[randX][randY] = '9';
-            index++;
-        }
-    }
-}
-
 void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
@@ -121,14 +104,6 @@ int menu(){
     }
 
     return fieldSize;
-}
-
-void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingLetter, int sizeArrayX, int sizeArrayY){
-    for(int i = 0; i < sizeArrayX; i++){
-        for(int j = 0; j < sizeArrayY; j++){
-            array[i][j] = initingLetter;
-        }
-    }
 }
 
 int main(){

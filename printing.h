@@ -6,6 +6,8 @@
 #define GAME_FIELD_HEIGHT 16
 #define GAME_FIELD_LEN 16
 
+#define MINE_COUNT 40
+
 #define ARROW_UP 72
 #define ARROW_DOWN 80
 #define ARROW_RIGHT 77
