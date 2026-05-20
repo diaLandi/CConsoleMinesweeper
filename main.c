@@ -26,7 +26,7 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
             if(i == 0 && j == 0){
                 continue;
             }
-            if(gameField[x][y] == '9'){
+            if(gameField[x][y] == 9){
                 counter++;
             }
         }
@@ -61,7 +61,7 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
 void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
-            if(gameField[j][i] != '9'){
+            if(gameField[j][i] != 9){
                 gameField[j][i] = countBombs(gameField, j, i, GAME_FIELD_LEN, GAME_FIELD_HEIGHT) + '0';
             }
         }
@@ -134,16 +134,18 @@ int findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, in
 
 int main(){
     srand(time(NULL));
+
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
     int lost = 0;
+
     enableAnsi();
 
-    firstInitArray(gameField, '?', GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
+    firstInitArray(gameField, 0, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
     firstMove(gameField);
 
-    printFieldUser(gameField, -1, -1);
     refreshBombsOnField(gameField);
+    findFoundFields(gameField, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
     
     do{
         printFieldUser(gameField, -1, -1);

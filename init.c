@@ -38,8 +38,8 @@ void generateField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int firstP
         randX = rand() % GAME_FIELD_LEN;
         randY = rand() % GAME_FIELD_HEIGHT;
 
-        if(gameField[randX][randY] != '9' && !(randX == firstPositionX && randY == firstPositionY)){
-            gameField[randX][randY] = '9';
+        if(gameField[randX][randY] != 9 && !(randX == firstPositionX && randY == firstPositionY)){
+            gameField[randX][randY] = 9;
             index++;
         }
     }
