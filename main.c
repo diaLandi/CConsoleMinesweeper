@@ -106,6 +106,32 @@ int menu(){
     return fieldSize;
 }
 
+int findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int sizeY){
+    int retry;
+    do{
+        retry = 0;
+
+        for(int i = 0; i < sizeX; i++){
+            for(int j = 0; j < sizeY; j++){
+                if(array[i][j] == '0'){
+                    for(int k = -1; k < 2; k++){
+                        for(int l = -1; l < 2; l++){
+                            if(k != 0 || l != 0){
+                                if(i + k < sizeX && i + k >= 0 && j + l < sizeY && j + l >= 0){
+                                    if(array[i + k][j + l] == 0){
+                                        array[i + k][j + l] = '0';
+                                        retry = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }while(retry == 1);
+}
+
 int main(){
     srand(time(NULL));
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];

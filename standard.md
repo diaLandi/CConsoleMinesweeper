@@ -9,7 +9,7 @@
 ### Abspeicherungen
 
 intern wird abgespeichert:
-| string | Feld selbst | Umfeld (Wortwitz) | Status |
+| char (als int) | Feld selbst | Umfeld (Wortwitz) | Status |
 | :--- | :--- | :--- | :--- |
 | `0` | leeres Feld  | keine Bomben |unentdeckt | 
 | `1` | leeres Feld | eine Bombe | unentdeckt | 
