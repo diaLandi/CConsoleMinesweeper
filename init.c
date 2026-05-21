@@ -22,6 +22,33 @@ void init_utf8_konsole() {
     #endif
 }
 
+int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
+    int counter = 0;
+
+    if(indexX < 0 || indexX >= sizeX || indexY < 0 || indexY >= sizeY){
+        return -1;
+    }
+
+    for(int i = -1; i <= 1; i++){
+        for(int j = -1; j <= 1; j++){
+            int x = indexX + i;
+            int y = indexY + j;
+
+            if(x < 0 || x >= sizeX || y < 0 || y >= sizeY){
+                continue;
+            }
+            if(i == 0 && j == 0){
+                continue;
+            }
+            if(gameField[x][y] == 9){
+                counter++;
+            }
+        }
+    }
+
+    return counter;
+}
+
 void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingLetter, int sizeArrayX, int sizeArrayY){
     for(int i = 0; i < sizeArrayX; i++){
         for(int j = 0; j < sizeArrayY; j++){

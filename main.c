@@ -8,33 +8,6 @@
 #include "printing.h"
 #include "init.h"
 
-int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
-    int counter = 0;
-
-    if(indexX < 0 || indexX >= sizeX || indexY < 0 || indexY >= sizeY){
-        return -1;
-    }
-
-    for(int i = -1; i <= 1; i++){
-        for(int j = -1; j <= 1; j++){
-            int x = indexX + i;
-            int y = indexY + j;
-
-            if(x < 0 || x >= sizeX || y < 0 || y >= sizeY){
-                continue;
-            }
-            if(i == 0 && j == 0){
-                continue;
-            }
-            if(gameField[x][y] == 9){
-                counter++;
-            }
-        }
-    }
-
-    return counter;
-}
-
 void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY){
     int button;
 
@@ -62,7 +35,12 @@ void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
             if(gameField[j][i] != 9){
-                gameField[j][i] = countBombs(gameField, j, i, GAME_FIELD_LEN, GAME_FIELD_HEIGHT) + '0';
+                int cnt = countBombs(gameField, j, i, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
+
+                if(gameField[j][i] != 0){
+                    gameField[j][i] = (char)(cnt + '0');
+                } else {
+                }
             }
         }
     }
@@ -71,18 +49,16 @@ void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
 void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     int valuePosX = GAME_FIELD_LEN / 2 - 1;
     int valuePosY = GAME_FIELD_HEIGHT / 2 - 1;
-    int *positionX = &valuePosX;
-    int *positionY = &valuePosY;
 
     system("cls");
 
     printMinesweeper();
-    moveInField(gameField, positionX, positionY);
+    moveInField(gameField, &valuePosX, &valuePosY);
 
-    generateField(gameField, *positionX, *positionY);
+    generateField(gameField, valuePosX, valuePosY);
 
     system("cls");
-    gameField[*positionX][*positionY] = '0';
+    gameField[valuePosX][valuePosY] = '0';
 }
 
 int menu(){
