@@ -47,7 +47,7 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
                 
                 default:
                     printf("\033[0m|");
-                    printf("\033[42m ? \033[0m");
+                    printf("\033[42m   \033[0m");
                     //for testing: printf("| %c ", gameField[j][i]);
                     break;
                 }
