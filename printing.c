@@ -6,7 +6,7 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
             if(cursorPositionX == j && cursorPositionY == i){
-                printf("| \033[6;35m%c\033[0m ", gameField[j][i]);
+                printf("| \033[6;35m \033[0m ", gameField[j][i]);
             } else{
                 switch (gameField[j][i]){
                 case '0':
@@ -47,7 +47,7 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
                 
                 default:
                     printf("\033[0m|");
-                    printf("\033[42m   \033[0m");
+                    printf("\033[42m ? \033[0m");
                     //for testing: printf("| %c ", gameField[j][i]);
                     break;
                 }
