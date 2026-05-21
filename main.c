@@ -8,33 +8,6 @@
 #include "printing.h"
 #include "init.h"
 
-int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
-    int counter = 0;
-
-    if(indexX < 0 || indexX >= sizeX || indexY < 0 || indexY >= sizeY){
-        return -1;
-    }
-
-    for(int i = -1; i <= 1; i++){
-        for(int j = -1; j <= 1; j++){
-            int x = indexX + i;
-            int y = indexY + j;
-
-            if(x < 0 || x >= sizeX || y < 0 || y >= sizeY){
-                continue;
-            }
-            if(i == 0 && j == 0){
-                continue;
-            }
-            if(gameField[x][y] == 9){
-                counter++;
-            }
-        }
-    }
-
-    return counter;
-}
-
 void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY){
     int button;
 
@@ -61,8 +34,8 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
 void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
-            if(gameField[j][i] != 9){
-                gameField[j][i] = countBombs(gameField, j, i, GAME_FIELD_LEN, GAME_FIELD_HEIGHT) + '0';
+            if(gameField[j][i] != 9 && gameField[j][i] != '9'){
+                gameField[j][i] = countBombs(gameField, j, i, GAME_FIELD_LEN, GAME_FIELD_HEIGHT); //NO + '0'!!! 21.05.2026
             }
         }
     }
@@ -71,18 +44,16 @@ void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
 void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     int valuePosX = GAME_FIELD_LEN / 2 - 1;
     int valuePosY = GAME_FIELD_HEIGHT / 2 - 1;
-    int *positionX = &valuePosX;
-    int *positionY = &valuePosY;
 
     system("cls");
 
     printMinesweeper();
-    moveInField(gameField, positionX, positionY);
+    moveInField(gameField, &valuePosX, &valuePosY);
 
-    generateField(gameField, *positionX, *positionY);
+    generateField(gameField, valuePosX, valuePosY);
 
     system("cls");
-    gameField[*positionX][*positionY] = '0';
+    gameField[valuePosX][valuePosY] = '0';
 }
 
 int menu(){
@@ -106,7 +77,7 @@ int menu(){
     return fieldSize;
 }
 
-int findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int sizeY){
+void findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int sizeY){
     int retry;
     do{
         retry = 0;
@@ -118,8 +89,8 @@ int findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, in
                         for(int l = -1; l < 2; l++){
                             if(k != 0 || l != 0){
                                 if(i + k < sizeX && i + k >= 0 && j + l < sizeY && j + l >= 0){
-                                    if(array[i + k][j + l] == 0){
-                                        array[i + k][j + l] = '0';
+                                    if(array[i + k][j + l] < 9){
+                                        array[i + k][j + l] += '0';
                                         retry = 1;
                                     }
                                 }
@@ -127,6 +98,24 @@ int findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, in
                         }
                     }
                 }
+                /*
+                if(array[i][j] > '0'){
+                    for(int k = -1; k < 2; k++){
+                        for(int l = -1; l < 2; l++){
+                            if(k != 0 || l != 0){
+                                if(i + k < sizeX && i + k >= 0 && j + l < sizeY && j + l >= 0){
+                                    if(array[i + k][j + l] == 0){
+                                        if(array[i + k][j + l] == 0){
+                                            array[i + k][j + l] = '0';
+                                            retry = 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                */
             }
         }
     }while(retry == 1);
@@ -143,7 +132,8 @@ int main(){
     firstInitArray(gameField, 0, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
     firstMove(gameField);
-
+    /*LOG*/printFieldUser(gameField, -1, -1);
+    
     refreshBombsOnField(gameField);
     findFoundFields(gameField, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
     
