@@ -1,6 +1,6 @@
 #include "printing.h"
 
-void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY){
+void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY, int cheat){
     printf("+---------------------------------------------------------------+\n");
 
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
@@ -47,8 +47,18 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
                 
                 default:
                     printf("\033[0m|");
-                    printf("\033[42m   \033[0m");
-                    //for testing: printf("| %c ", gameField[j][i]);
+                    printf("\033[42m");
+                    if(gameField[j][i] <= 9){
+                        if(cheat == 1 && gameField[j][i] == 9){
+                            printf(" B");
+                        } else {
+                            printf("  ");
+                        }
+                    } else {
+                        printf("\U0001F6A9");//needs UTF-8 and prints the flag
+                    }
+                    printf(" \033[0m");
+
                     break;
                 }
             }

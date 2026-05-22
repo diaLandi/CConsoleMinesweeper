@@ -16,11 +16,16 @@ intern wird abgespeichert:
 | ... | leeres Feld | 2 - 7 Bomben | unentdeckt | 
 | `8` | leeres Feld | 8 Bomben | unentdeckt | 
 | `9` | Bombe | irrelewant | unentdeckt |
+| `10` | Flagge | keine Bomben |unentdeckt | 
+| `11` | Flagge | eine Bombe | unentdeckt | 
+| ...  | Flagge | 2 - 7 Bomben | unentdeckt | 
+| `18` | Flagge | 8 Bomben | unentdeckt | 
+| `19` | Flagge & Bombe | irrelewant | unentdeckt |
 | `'0'` | leeres Feld  | keine Bomben |entdeckt | 
 | `'1'` | leeres Feld | eine Bombe | entdeckt | 
 | ... | leeres Feld | 2 - 7 Bomben | entdeckt | 
 | `'8'` | leeres Feld | 8 Bomben | entdeckt | 
-| `'9'` | Bombe | irrelewant | entdeckt | 
+| `'9'` | Bombe | irrelewant | entdeckt |
 
 ### Codes for the status variable
 

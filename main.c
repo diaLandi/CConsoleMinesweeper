@@ -8,14 +8,22 @@
 #include "printing.h"
 #include "init.h"
 
-void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY){
+void placeFlag(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int posY){
+    if(gameField[posX][posY] <= 9){
+        gameField[posX][posY] += 10;
+    } else if (gameField[posX][posY] >= 10 && gameField[posX][posY] <=19){
+        gameField[posX][posY] -= 10;
+    }
+}
+
+void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY, int* cheat){
     int button;
 
     do{
         system("cls");
         printMinesweeper();
         
-        printFieldUser(gameField, *positionX, *positionY);
+        printFieldUser(gameField, *positionX, *positionY, *cheat);
         button = _getch();
 
         if(button == ARROW_LEFT && *positionX > 0){
@@ -26,6 +34,14 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
             (*positionX)++;
         } else if(button == ARROW_DOWN && *positionY < GAME_FIELD_HEIGHT - 1){
             (*positionY)++;
+        } else if(button == KEY_F){
+            placeFlag(gameField, *positionX, *positionY);
+        } else if(button == KEY_C){
+            if(*cheat == 0){
+                *cheat = 1;
+            } else {
+                *cheat = 0;
+            }
         }
 
     } while(button != ENTER_KEY);
@@ -47,14 +63,14 @@ void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     }
 }
 
-void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int* valuePosX, int* valuePosY){
+void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int* valuePosX, int* valuePosY, int* cheat){
     *valuePosX = GAME_FIELD_LEN / 2 - 1;
     *valuePosY = GAME_FIELD_HEIGHT / 2 - 1;
 
     system("cls");
 
     printMinesweeper();
-    moveInField(gameField, valuePosX, valuePosY);
+    moveInField(gameField, valuePosX, valuePosY, cheat);
 
     generateField(gameField, *valuePosX, *valuePosY);
 
@@ -146,22 +162,28 @@ int main(){
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
     int status = 0;
     int posX = -1, posY = -1;
+    int cheat = 0;
 
     enableAnsi();
+    init_utf8_konsole();
 
     firstInitArray(gameField, 0, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
-    firstMove(gameField, &posX, &posY);
+    firstMove(gameField, &posX, &posY, &cheat);
     
     refreshBombsOnField(gameField);
     findFoundFields(gameField, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
     
     do{
-        moveInField(gameField, &posX, &posY);
+        moveInField(gameField, &posX, &posY, &cheat);
         status = revealField(gameField, posX, posY, GAME_FIELD_LEN, GAME_FIELD_HEIGHT, MINE_COUNT);
     }while(status == 0);
 
     system("cls");
-    printYouWin();
-    printGameOver();
+
+    if(status == 1){
+        printGameOver();
+    } else if (status == 2) {
+        printYouWin();
+    }
 }

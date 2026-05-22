@@ -15,7 +15,7 @@ void enableAnsi(void){
     SetConsoleMode(hOut, dwMode | ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 }
 
-void init_utf8_konsole() {
+void init_utf8_konsole(){
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8); 
         SetConsoleCP(CP_UTF8);
