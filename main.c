@@ -109,7 +109,24 @@ void findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, i
     }while(retry == 1);
 }
 
-int revealField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int posY, int sizeX, int sizeY){
+int checkWin(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int sizeY, int mineCount){
+    int counter = 0;
+    for(int i = 0; i < sizeX; i++){
+        for(int j = 0; j < sizeY; j++){
+            if(gameField[i][j] >= '0' && gameField[i][j] <= '8'){
+                counter++;
+            }
+        }
+    }
+    if(counter >= ((sizeX * sizeY) - mineCount)){
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
+int revealField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int posY, int sizeX, int sizeY, int mineCount){
+    int win = checkWin(gameField, sizeX, sizeY, mineCount);
     if(gameField[posX][posY] < 9){
         gameField[posX][posY] += '0';
         findFoundFields(gameField, sizeX, sizeY);
@@ -117,14 +134,17 @@ int revealField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int
     } else if(gameField[posX][posY] == 9){
         gameField[posX][posY] += '0';
         return 1;
+    } else if (win == 2){
+        return 2;
     }
+    return -1;
 }
 
 int main(){
     srand(time(NULL));
 
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
-    int lost = 0;
+    int status = 0;
     int posX = -1, posY = -1;
 
     enableAnsi();
@@ -138,6 +158,10 @@ int main(){
     
     do{
         moveInField(gameField, &posX, &posY);
-        lost = revealField(gameField, posX, posY, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
-    }while(lost == 0);
+        status = revealField(gameField, posX, posY, GAME_FIELD_LEN, GAME_FIELD_HEIGHT, MINE_COUNT);
+    }while(status == 0);
+
+    system("cls");
+    printYouWin();
+    printGameOver();
 }

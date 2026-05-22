@@ -16,5 +16,7 @@
 
 void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY);
 void printMinesweeper();
+void printYouWin();
+void printGameOver();
 
 #endif

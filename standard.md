@@ -22,6 +22,15 @@ intern wird abgespeichert:
 | `'8'` | leeres Feld | 8 Bomben | entdeckt | 
 | `'9'` | Bombe | irrelewant | entdeckt | 
 
+### Codes for the status variable
+
+Variable: <br> `status`
+| int - Wert | Bedeutung |
+| :--- | :--- |
+| `0` | im Spiel |
+| `1` | verloren |
+| `2` | gewonnen |
+
 ## Links für Live Share Extension
 
 davor: https://prod.liveshare.vsengsaas.visualstudio.com/join?3CEF82B4C24613B650073107BA2C122EA507
