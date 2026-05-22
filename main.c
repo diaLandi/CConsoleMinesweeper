@@ -16,6 +16,23 @@ void placeFlag(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int 
     }
 }
 
+void help(){
+    int button;
+
+    system("cls");
+
+    printf("Help Menu:\n\n");
+    printf("Move: \033[1marrow keys\033[0m\n");
+    printf("Destroy Field: \033[1menter\033[0m\n");
+    printf("Place flag: \033[1mf\033[0m");
+
+    printf("\n\nTo resturn to game press Enter...");
+
+    do{
+        button = _getch();
+    } while(button != ENTER_KEY);
+}
+
 void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY, int* cheat){
     int button;
 
@@ -24,6 +41,7 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
         printMinesweeper();
         
         printFieldUser(gameField, *positionX, *positionY, *cheat);
+        printf("\n\nFor help press \033[1mh\033[0m");
         button = _getch();
 
         if(button == ARROW_LEFT && *positionX > 0){
@@ -42,6 +60,8 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
             } else {
                 *cheat = 0;
             }
+        } else if(button == KEY_H){
+            help();
         }
 
     } while(button != ENTER_KEY);
@@ -78,6 +98,7 @@ void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int* valuePosX
     gameField[*valuePosX][*valuePosY] = '0';
 }
 
+/*
 int menu(){
     int fieldSize;
 
@@ -98,6 +119,7 @@ int menu(){
 
     return fieldSize;
 }
+*/
 
 void findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int sizeY){
     int retry;
@@ -120,24 +142,6 @@ void findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, i
                         }
                     }
                 }
-                /*
-                if(array[i][j] > '0'){
-                    for(int k = -1; k < 2; k++){
-                        for(int l = -1; l < 2; l++){
-                            if(k != 0 || l != 0){
-                                if(i + k < sizeX && i + k >= 0 && j + l < sizeY && j + l >= 0){
-                                    if(array[i + k][j + l] == 0){
-                                        if(array[i + k][j + l] == 0){
-                                            array[i + k][j + l] = '0';
-                                            retry = 1;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                */
             }
         }
     }while(retry == 1);

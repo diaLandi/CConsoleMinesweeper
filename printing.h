@@ -15,6 +15,7 @@
 #define ENTER_KEY 13
 #define KEY_C 99
 #define KEY_F 102
+#define KEY_H 104
 
 void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY, int cheat);
 void printMinesweeper();
