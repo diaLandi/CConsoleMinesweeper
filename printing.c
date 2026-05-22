@@ -1,12 +1,12 @@
 #include "printing.h"
 
-void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY){
+void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY, int cheat){
     printf("+---------------------------------------------------------------+\n");
 
     for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
         for(int j = 0; j < GAME_FIELD_LEN; j++){
             if(cursorPositionX == j && cursorPositionY == i){
-                printf("| \033[6;35m%c\033[0m ", gameField[j][i]);
+                printf("| \033[6;35m \033[0m ", gameField[j][i]);
             } else{
                 switch (gameField[j][i]){
                 case '0':
@@ -47,10 +47,18 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
                 
                 default:
                     printf("\033[0m|");
-                    //Choose one of the next three:
-                    //printf("\033[42m   \033[0m");
-                    printf("\033[42m ? \033[0m");
-                    //printf("| %c ", gameField[j][i]);
+                    printf("\033[42m");
+                    if(gameField[j][i] <= 9){
+                        if(cheat == 1 && gameField[j][i] == 9){
+                            printf(" B");
+                        } else {
+                            printf("  ");
+                        }
+                    } else {
+                        printf("\U0001F6A9");//needs UTF-8 and prints the flag
+                    }
+                    printf(" \033[0m");
+
                     break;
                 }
             }
@@ -85,4 +93,29 @@ void printMinesweeper(){
     printf("                                                                                 | $$\n");
     printf("                                                                                  \\$$\n");
     printf("\n");
+}
+
+void printYouWin(){
+    printf(" __      __                                        __           \n");
+    printf("|  \\    /  \\                                      |  \\         \n");
+    printf(" \\$$\\  /  $$______   __    __        __   __   __  \\$$ _______  \n");
+    printf("  \\$$\\/  $$/      \\ |  \\  |  \\      |  \\ |  \\ |  \\|  \\|       \\ \n");
+    printf("   \\$$  $$|  $$$$$$\\| $$  | $$      | $$ | $$ | $$| $$| $$$$$$$\\ \n");
+    printf("    \\$$$$ | $$  | $$| $$  | $$      | $$ | $$ | $$| $$| $$  | $$\n");
+    printf("    | $$  | $$__/ $$| $$__/ $$      | $$_/ $$_/ $$| $$| $$  | $$\n");
+    printf("    | $$   \\$$    $$ \\$$    $$       \\$$   $$   $$| $$| $$  | $$\n");
+    printf("     \\$$    \\$$$$$$   \\$$$$$$         \\$$$$$\\$$$$  \\$$ \\$$   \\$$\n");
+    printf("\n");
+}
+
+void printGameOver(){
+    printf("  ______                                                                                  \n");
+    printf(" /      \\                                                                                 \n");
+    printf("|  $$$$$$\\  ______   ______ ____    ______          ______  __     __   ______    ______  \n");
+    printf("| $$ __\\$$ |      \\ |      \\    \\  /      \\        /      \\|  \\   /  \\ /      \\  /      \\ \n");
+    printf("| $$|    \\  \\$$$$$$\\| $$$$$$\\$$$$\\|  $$$$$$\\      |  $$$$$$\\$$\\ /  $$|  $$$$$$\\|  $$$$$$ \\ \n");
+    printf("| $$ \\$$$$ /      $$| $$ | $$ | $$| $$    $$      | $$  | $$ \\$$\\  $$ | $$    $$| $$   \\$$ \n");
+    printf("| $$__| $$|  $$$$$$$| $$ | $$ | $$| $$$$$$$$      | $$__/ $$  \\$$ $$  | $$$$$$$$| $$      \n");
+    printf(" \\$$    $$ ß\\$$    $$| $$ | $$ | $$ \\$$     \\       \\$$    $$   \\$$$    \\$$     \\| $$      \n");
+    printf("  \\$$$$$$   \\$$$$$$$ \\$$  \\$$  \\$$  \\$$$$$$$        \\$$$$$$     \\$      \\$$$$$$$ \\$$      \n");
 }

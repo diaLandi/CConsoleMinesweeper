@@ -15,7 +15,7 @@ void enableAnsi(void){
     SetConsoleMode(hOut, dwMode | ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 }
 
-void init_utf8_konsole() {
+void init_utf8_konsole(){
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8); 
         SetConsoleCP(CP_UTF8);
@@ -58,14 +58,13 @@ void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingL
 }
 
 void generateField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int firstPositionX, int firstPositionY){
-    int randX;
-    int randY;
+    int randX, randY;
     int index = 0;
     while(index < MINE_COUNT){
         randX = rand() % GAME_FIELD_LEN;
         randY = rand() % GAME_FIELD_HEIGHT;
 
-        if(gameField[randX][randY] != 9 && !(randX == firstPositionX && randY == firstPositionY)){
+        if(gameField[randX][randY] != 9 && !(randX >= firstPositionX - 1 && randX <= firstPositionX + 1 && randY >= firstPositionY - 1 && randY <= firstPositionY + 1)){
             gameField[randX][randY] = 9;
             index++;
         }
