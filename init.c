@@ -59,21 +59,14 @@ void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingL
 
 void generateField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int firstPositionX, int firstPositionY){
     int randX, randY;
-    int cnt;
     int index = 0;
     while(index < MINE_COUNT){
         randX = rand() % GAME_FIELD_LEN;
         randY = rand() % GAME_FIELD_HEIGHT;
-        int temp = gameField[randX][randY];
 
-        gameField[randX][randY] = 9;
-
-        cnt = countBombs(gameField, firstPositionX, firstPositionY, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
-        
-        if(gameField[randX][randY] != 9 && randX != firstPositionX && randY != firstPositionY && cnt == 0){
+        if(gameField[randX][randY] != 9 && !(randX >= firstPositionX - 1 && randX <= firstPositionX + 1 && randY >= firstPositionY - 1 && randY <= firstPositionY + 1)){
+            gameField[randX][randY] = 9;
             index++;
-        } else {
-            gameField[randX][randY] = temp;
         }
     }
 }

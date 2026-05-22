@@ -1,5 +1,5 @@
 # CConsoleMinesweeper
 A simple Minesweeper in C for the console
 
-#Information 
+## Information 
 No information included.

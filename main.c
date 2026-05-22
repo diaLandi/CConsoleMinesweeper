@@ -47,19 +47,19 @@ void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
     }
 }
 
-void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
-    int valuePosX = GAME_FIELD_LEN / 2 - 1;
-    int valuePosY = GAME_FIELD_HEIGHT / 2 - 1;
+void firstMove(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int* valuePosX, int* valuePosY){
+    *valuePosX = GAME_FIELD_LEN / 2 - 1;
+    *valuePosY = GAME_FIELD_HEIGHT / 2 - 1;
 
     system("cls");
 
     printMinesweeper();
-    moveInField(gameField, &valuePosX, &valuePosY);
+    moveInField(gameField, valuePosX, valuePosY);
 
-    generateField(gameField, valuePosX, valuePosY);
+    generateField(gameField, *valuePosX, *valuePosY);
 
     system("cls");
-    gameField[valuePosX][valuePosY] = '0';
+    gameField[*valuePosX][*valuePosY] = '0';
 }
 
 int menu(){
@@ -109,25 +109,35 @@ void findFoundFields(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, i
     }while(retry == 1);
 }
 
+int revealField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int posY, int sizeX, int sizeY){
+    if(gameField[posX][posY] < 9){
+        gameField[posX][posY] += '0';
+        findFoundFields(gameField, sizeX, sizeY);
+        return 0;
+    } else if(gameField[posX][posY] == 9){
+        gameField[posX][posY] += '0';
+        return 1;
+    }
+}
+
 int main(){
     srand(time(NULL));
 
     char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT];
     int lost = 0;
+    int posX = -1, posY = -1;
 
     enableAnsi();
 
     firstInitArray(gameField, 0, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
 
-    firstMove(gameField);
-    /*LOG: printFieldUser(gameField, -1, -1);*/
+    firstMove(gameField, &posX, &posY);
     
     refreshBombsOnField(gameField);
     findFoundFields(gameField, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
     
     do{
-        printFieldUser(gameField, -1, -1);
-
-        lost = 1; //later only after move, if on bomb
+        moveInField(gameField, &posX, &posY);
+        lost = revealField(gameField, posX, posY, GAME_FIELD_LEN, GAME_FIELD_HEIGHT);
     }while(lost == 0);
 }
