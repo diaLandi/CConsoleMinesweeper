@@ -16,23 +16,6 @@ void placeFlag(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int 
     }
 }
 
-void help(){
-    int button;
-
-    system("cls");
-
-    printf("Help Menu:\n\n");
-    printf("Move: \033[1marrow keys\033[0m\n");
-    printf("Destroy Field: \033[1menter\033[0m\n");
-    printf("Place flag: \033[1mf\033[0m");
-
-    printf("\n\nTo resturn to game press Enter...");
-
-    do{
-        button = _getch();
-    } while(button != ENTER_KEY);
-}
-
 void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positionX, int *positionY, int* cheat){
     int button;
 
@@ -41,16 +24,16 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
         printMinesweeper();
         
         printFieldUser(gameField, *positionX, *positionY, *cheat);
-        printf("\n\nFor help press \033[1mh\033[0m");
+        printf("\n\nPress \033[1mM\033[0m for Menu");
         button = _getch();
 
-        if(button == ARROW_LEFT && *positionX > 0){
+        if((button == KEY_ARROW_LEFT || button == KEY_A) && *positionX > 0){
             (*positionX)--;
-        } else if(button == ARROW_UP && *positionY > 0){
+        } else if((button == KEY_ARROW_UP || button == KEY_W) && *positionY > 0){
             (*positionY)--;
-        } else if(button == ARROW_RIGHT && *positionX < GAME_FIELD_LEN - 1){
+        } else if((button == KEY_ARROW_RIGHT || button == KEY_D) && *positionX < GAME_FIELD_LEN - 1){
             (*positionX)++;
-        } else if(button == ARROW_DOWN && *positionY < GAME_FIELD_HEIGHT - 1){
+        } else if((button == KEY_ARROW_DOWN || button == KEY_S) && *positionY < GAME_FIELD_HEIGHT - 1){
             (*positionY)++;
         } else if(button == KEY_F){
             placeFlag(gameField, *positionX, *positionY);
@@ -60,11 +43,11 @@ void moveInField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int *positio
             } else {
                 *cheat = 0;
             }
-        } else if(button == KEY_H){
-            help();
+        } else if(button == KEY_M){
+            inGameMenu();
         }
 
-    } while(button != ENTER_KEY);
+    } while(button != KEY_ENTER && button != KEY_SPACE);
 }
 
 void refreshBombsOnField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT]){
@@ -164,16 +147,27 @@ int checkWin(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int sizeX, int s
 }
 
 int revealField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int posX, int posY, int sizeX, int sizeY, int mineCount){
-    int win = checkWin(gameField, sizeX, sizeY, mineCount);
     if(gameField[posX][posY] < 9){
         gameField[posX][posY] += '0';
         findFoundFields(gameField, sizeX, sizeY);
-        return 0;
-    } else if(gameField[posX][posY] == 9){
+        if(checkWin(gameField, sizeX, sizeY, mineCount) == 2){
+            return 2;
+        } else {
+            return 0;
+        }
+    } else if (gameField[posX][posY] >= 10 && gameField[posX][posY] < 19){
+        gameField[posX][posY] -= 10;
         gameField[posX][posY] += '0';
+        findFoundFields(gameField, sizeX, sizeY);
+        if(checkWin(gameField, sizeX, sizeY, mineCount) == 2){
+            return 2;
+        } else {
+            return 0;
+        }
+    } else if(gameField[posX][posY] == 9){
         return 1;
-    } else if (win == 2){
-        return 2;
+    } else if (gameField[posX][posY] >= '0'){
+        return 0;
     }
     return -1;
 }

@@ -118,4 +118,100 @@ void printGameOver(){
     printf("| $$__| $$|  $$$$$$$| $$ | $$ | $$| $$$$$$$$      | $$__/ $$  \\$$ $$  | $$$$$$$$| $$      \n");
     printf(" \\$$    $$ ß\\$$    $$| $$ | $$ | $$ \\$$     \\       \\$$    $$   \\$$$    \\$$     \\| $$      \n");
     printf("  \\$$$$$$   \\$$$$$$$ \\$$  \\$$  \\$$  \\$$$$$$$        \\$$$$$$     \\$      \\$$$$$$$ \\$$      \n");
+    printf("\n");
+}
+
+void printMenu(){
+    printf(" __       __\n");
+    printf("|  \\     /  \\\n");
+    printf("| $$\\   /  $$  ______   _______   __    __\n");
+    printf("| $$$\\ /  $$$ /      \\ |       \\ |  \\  |  \\\n");
+    printf("| $$$$\\  $$$$|  $$$$$$\\| $$$$$$$\\| $$  | $$\n");
+    printf("| $$\\$$ $$ $$| $$    $$| $$  | $$| $$  | $$\n");
+    printf("| $$ \\$$$| $$| $$$$$$$$| $$  | $$| $$__/ $$\n");
+    printf("| $$  \\$ | $$ \\$$     \\| $$  | $$ \\$$    $$\n");
+    printf(" \\$$      \\$$  \\$$$$$$$ \\$$   \\$$  \\$$$$$$ \n");
+    printf("\n");
+}
+
+void printInGameMenu(int pos){
+    system("cls");
+    printMenu();
+    printf("+----+--------------+\n");
+
+    for(int i = 0; i < 3; i++){
+        if(pos == i){
+            printf("| \033[47m  \033[0m | ");
+        } else {
+            printf("|    | ");
+        }
+        switch(i){
+        case 0:
+            printf("Controls     |\n");
+            break;
+        case 1:
+            printf("Restart game |\n");
+            break;
+        case 2:
+            printf("Back to game |\n");
+            break;
+        }
+    }
+
+    printf("+----+--------------+\n\n");
+
+    printf("Press Arrow Keys Up/Down to move selection\n");
+    printf("Press ENTER / SPACE to select");
+}
+
+void inGameMenu(){
+    int button; 
+    int pos = 0;
+
+    do{
+        printInGameMenu(pos);
+    
+        button = _getch();
+
+        if((button == KEY_ARROW_UP || button == KEY_W) && pos > 0){
+            pos--;
+        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && pos < 2){
+            pos++;
+        } else if (button == KEY_ENTER || button == KEY_SPACE){
+            switch(pos){
+                case 0:
+                    printControls();
+                    break;
+                case 1:
+                    //not yet finished
+                    break;
+                case 2:
+                    pos = -1;
+                    break;
+            }
+        }
+    } while(pos != -1);
+}
+
+void printControls(){
+    int button;
+
+    system("cls");
+
+    printf("Controls: \n\n");
+    printf("| Action             | first key | secondary key   |\n");
+    printf("+--------------------+-----------+-----------------+\n");
+    printf("| Move up:           |     W     |  ARROW key up   |\n");
+    printf("| Move down:         |     S     | ARROW key down  |\n");
+    printf("| Move left:         |     A     | ARROW key left  |\n");
+    printf("| Move right:        |     D     | ARROW key right |\n");
+    printf("| Destroy Field:     |   ENTER   |      SPACE      |\n");
+    printf("| Place flag:        |     F     |                 |\n");
+    printf("| En/Disable Cheats: |     C     |                 |\n");
+
+    printf("\nPress ENTER / SPACE to return to the menu");
+
+    do{
+        button = _getch();
+    } while(button != KEY_ENTER && button != KEY_SPACE);
 }
