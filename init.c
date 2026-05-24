@@ -66,7 +66,7 @@ void generateField(int gameLength, int gameHeight, char gameField[gameLength][ga
     int index = 0;
     while(index < MINE_COUNT){
         randX = rand() % gameLength;
-        randY = rand() % gameLength;
+        randY = rand() % gameHeight;
 
         if(gameField[randX][randY] != 9 && !(randX >= firstPositionX - 1 && randX <= firstPositionX + 1 && randY >= firstPositionY - 1 && randY <= firstPositionY + 1)){
             gameField[randX][randY] = 9;

@@ -39,7 +39,7 @@ void inGameMenu(){
                     pos = -1;
                     break;
                 case 3:
-                    //not yet finished
+                    main();
                     break;
             }
         }
@@ -81,7 +81,7 @@ void moveInField(int gameLength, int gameHeight, char gameField[gameLength][game
 }
 
 void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight]){
-    for(int i = 0; i < gameLength; i++){
+    for(int i = 0; i < gameHeight; i++){
         for(int j = 0; j < gameLength; j++){
             if(gameField[j][i] != 9){
                 int cnt = countBombs(gameLength, gameHeight, gameField, j, i, gameLength, gameHeight);
@@ -98,7 +98,7 @@ void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLeng
 
 void firstMove(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int* valuePosX, int* valuePosY, int* cheat){
     *valuePosX = gameLength / 2 - 1;
-    *valuePosY = gameLength / 2 - 1;
+    *valuePosY = gameHeight / 2 - 1;
 
     system("cls");
 
@@ -267,7 +267,7 @@ int main(){
         quit = startMenu(&fieldLength, &fieldHeight, &minecount, &pos);
         char gameField[fieldLength][fieldHeight];
 
-        if (pos >= -10 && pos <= -12){
+        if (pos >= -12 && pos <= -10){
             game(fieldLength, fieldHeight, gameField, minecount);
         }
 
