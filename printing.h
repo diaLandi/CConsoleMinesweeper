@@ -27,7 +27,7 @@
 #define KEY_S 115
 #define KEY_W 119
 
-void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY, int cheat);
+void printFieldUser(int fieldLength, int fieldHeight, char[fieldLength][fieldHeight], int cursorPositionX, int cursorPositionY, int cheat);
 
 void printMinesweeper();
 void printYouWin();
@@ -36,5 +36,6 @@ void printMenu();
 
 void printInGameMenu(int pos);
 void printControls();
+void printStartMenu(int pos);
 
 #endif

@@ -1,5 +1,9 @@
 #include "init.h"
 
+void initRand(){
+    srand(time(NULL));
+}
+
 void enableAnsi(void){
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
@@ -22,7 +26,7 @@ void init_utf8_konsole(){
     #endif
 }
 
-int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, int indexY, int sizeX, int sizeY){
+int countBombs(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int indexX, int indexY, int sizeX, int sizeY){
     int counter = 0;
 
     if(indexX < 0 || indexX >= sizeX || indexY < 0 || indexY >= sizeY){
@@ -49,20 +53,20 @@ int countBombs(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int indexX, in
     return counter;
 }
 
-void firstInitArray(char array[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], char initingLetter, int sizeArrayX, int sizeArrayY){
-    for(int i = 0; i < sizeArrayX; i++){
-        for(int j = 0; j < sizeArrayY; j++){
-            array[i][j] = initingLetter;
+void firstInitArray(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], char initingLetter){
+    for(int i = 0; i < gameLength; i++){
+        for(int j = 0; j < gameHeight; j++){
+            gameField[i][j] = initingLetter;
         }
     }
 }
 
-void generateField(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int firstPositionX, int firstPositionY){
+void generateField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int firstPositionX, int firstPositionY){
     int randX, randY;
     int index = 0;
     while(index < MINE_COUNT){
-        randX = rand() % GAME_FIELD_LEN;
-        randY = rand() % GAME_FIELD_HEIGHT;
+        randX = rand() % gameLength;
+        randY = rand() % gameLength;
 
         if(gameField[randX][randY] != 9 && !(randX >= firstPositionX - 1 && randX <= firstPositionX + 1 && randY >= firstPositionY - 1 && randY <= firstPositionY + 1)){
             gameField[randX][randY] = 9;

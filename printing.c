@@ -1,10 +1,10 @@
 #include "printing.h"
 
-void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int cursorPositionX, int cursorPositionY, int cheat){
+void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int cursorPositionX, int cursorPositionY, int cheat){
     printf("+---------------------------------------------------------------+\n");
 
-    for(int i = 0; i < GAME_FIELD_HEIGHT; i++){
-        for(int j = 0; j < GAME_FIELD_LEN; j++){
+    for(int i = 0; i < gameLength; i++){
+        for(int j = 0; j < gameLength; j++){
             if(cursorPositionX == j && cursorPositionY == i){
                 printf("| \033[6;35m \033[0m ", gameField[j][i]);
             } else{
@@ -62,14 +62,14 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
                     break;
                 }
             }
-            if(j == GAME_FIELD_LEN - 1){
+            if(j == gameLength - 1){
                 printf("|\n");
             }
         }
 
-        if(i < GAME_FIELD_HEIGHT - 1){
+        if(i < gameLength - 1){
             printf("|");
-            for(int j = 0; j < GAME_FIELD_LEN - 1; j++){
+            for(int j = 0; j < gameLength - 1; j++){
                 printf("---+");
             }
             printf("---|\n");
@@ -116,7 +116,7 @@ void printGameOver(){
     printf("| $$|    \\  \\$$$$$$\\| $$$$$$\\$$$$\\|  $$$$$$\\      |  $$$$$$\\$$\\ /  $$|  $$$$$$\\|  $$$$$$ \\ \n");
     printf("| $$ \\$$$$ /      $$| $$ | $$ | $$| $$    $$      | $$  | $$ \\$$\\  $$ | $$    $$| $$   \\$$ \n");
     printf("| $$__| $$|  $$$$$$$| $$ | $$ | $$| $$$$$$$$      | $$__/ $$  \\$$ $$  | $$$$$$$$| $$      \n");
-    printf(" \\$$    $$ ß\\$$    $$| $$ | $$ | $$ \\$$     \\       \\$$    $$   \\$$$    \\$$     \\| $$      \n");
+    printf(" \\$$    $$ \\$$    $$| $$ | $$ | $$ \\$$     \\       \\$$    $$   \\$$$    \\$$     \\| $$      \n");
     printf("  \\$$$$$$   \\$$$$$$$ \\$$  \\$$  \\$$  \\$$$$$$$        \\$$$$$$     \\$      \\$$$$$$$ \\$$      \n");
     printf("\n");
 }
@@ -175,10 +175,10 @@ void printControls(){
     printf("Controls: \n\n");
     printf("| Action             | first key | secondary key   |\n");
     printf("+--------------------+-----------+-----------------+\n");
-    printf("| Move up:           |     W     |  ARROW key up   |\n");
-    printf("| Move down:         |     S     | ARROW key down  |\n");
-    printf("| Move left:         |     A     | ARROW key left  |\n");
-    printf("| Move right:        |     D     | ARROW key right |\n");
+    printf("| Move up:           |     W     |  arrow key up   |\n");
+    printf("| Move down:         |     S     | arrow key down  |\n");
+    printf("| Move left:         |     A     | arrow key left  |\n");
+    printf("| Move right:        |     D     | arrow key right |\n");
     printf("| Destroy Field:     |   ENTER   |      SPACE      |\n");
     printf("| Place flag:        |     F     |                 |\n");
     printf("| En/Disable Cheats: |     C     |                 |\n");
@@ -188,4 +188,37 @@ void printControls(){
     do{
         button = _getch();
     } while(button != KEY_ENTER && button != KEY_SPACE);
+}
+
+void printStartMenu(int pos){
+    system("cls");
+    printMinesweeper();
+    printf("\n\n");
+
+    for(int i = 0; i < 5; i++){
+        if(pos == i){
+            printf("\033[47m");
+        }
+
+        switch (i){
+            case 0:
+                printf("Play Game Mode: easy\033[0m\n\n");
+                break;
+            case 1:
+                printf("Play Game Mode: medium\033[0m\n\n");
+                break;
+            case 2:
+                printf("Play Game Mode: hard\033[0m\n\n");
+                break;
+            case 3:
+                printf("Controls\033[0m\n\n");
+                break;
+            case 4:
+                printf("Quit game\033[0m\n\n");
+                break;
+        }
+    }
+
+    printf("Press Arrow Keys Up/Down to move selection\n");
+    printf("Press ENTER / SPACE to select");
 }
