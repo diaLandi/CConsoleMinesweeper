@@ -167,38 +167,6 @@ void printInGameMenu(int pos){
     printf("Press ENTER / SPACE to select");
 }
 
-void inGameMenu(){
-    int button; 
-    int pos = 0;
-
-    do{
-        printInGameMenu(pos);
-    
-        button = _getch();
-
-        if((button == KEY_ARROW_UP || button == KEY_W) && pos > 0){
-            pos--;
-        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && pos < 3){
-            pos++;
-        } else if (button == KEY_ENTER || button == KEY_SPACE){
-            switch(pos){
-                case 0:
-                    printControls();
-                    break;
-                case 1:
-                    //not yet finished
-                    break;
-                case 2:
-                    pos = -1;
-                    break;
-                case 3:
-                    //not yet finished
-                    break;
-            }
-        }
-    } while(pos != -1);
-}
-
 void printControls(){
     int button;
 

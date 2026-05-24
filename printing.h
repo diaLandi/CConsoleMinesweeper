@@ -31,7 +31,6 @@ void printFieldUser(char gameField[GAME_FIELD_LEN][GAME_FIELD_HEIGHT], int curso
 
 void printMinesweeper();
 void printYouWin();
-void inGameMenu();
 void printGameOver();
 void printMenu();
 
