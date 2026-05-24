@@ -139,7 +139,7 @@ void printInGameMenu(int pos){
     printMenu();
     printf("+----+--------------+\n");
 
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 4; i++){
         if(pos == i){
             printf("| \033[47m  \033[0m | ");
         } else {
@@ -154,6 +154,9 @@ void printInGameMenu(int pos){
             break;
         case 2:
             printf("Back to game |\n");
+            break;
+        case 3:
+            printf("Quit game    |\n");
             break;
         }
     }
@@ -175,7 +178,7 @@ void inGameMenu(){
 
         if((button == KEY_ARROW_UP || button == KEY_W) && pos > 0){
             pos--;
-        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && pos < 2){
+        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && pos < 3){
             pos++;
         } else if (button == KEY_ENTER || button == KEY_SPACE){
             switch(pos){
@@ -187,6 +190,9 @@ void inGameMenu(){
                     break;
                 case 2:
                     pos = -1;
+                    break;
+                case 3:
+                    //not yet finished
                     break;
             }
         }
