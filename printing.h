@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define GAME_FIELD_HEIGHT 16
-#define GAME_FIELD_LEN 16
+//#define GAME_FIELD_HEIGHT 16
+//#define GAME_FIELD_LEN 16
 
-#define MINE_COUNT 40
+//#define MINE_COUNT 40
 
 
 #define KEY_ENTER 13

@@ -56,3 +56,4 @@ Commands starts always with `git`
 | `U` | unknown, git doesn't know this file |
 | `M` | modified |
 | `A` | added |
+| `D` | deleted |
