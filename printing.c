@@ -3,7 +3,7 @@
 void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int cursorPositionX, int cursorPositionY, int cheat){
     printf("+---------------------------------------------------------------+\n");
 
-    for(int i = 0; i < gameHeight; i++){
+    for(int i = 0; i < gameLength; i++){
         for(int j = 0; j < gameLength; j++){
             if(cursorPositionX == j && cursorPositionY == i){
                 printf("| \033[6;35m \033[0m ", gameField[j][i]);
@@ -67,7 +67,7 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
             }
         }
 
-        if(i < gameHeight - 1){
+        if(i < gameLength - 1){
             printf("|");
             for(int j = 0; j < gameLength - 1; j++){
                 printf("---+");
