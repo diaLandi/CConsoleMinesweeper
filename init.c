@@ -61,10 +61,10 @@ void firstInitArray(int gameLength, int gameHeight, char gameField[gameLength][g
     }
 }
 
-void generateField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int firstPositionX, int firstPositionY){
+void generateField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int firstPositionX, int firstPositionY, int minecount){
     int randX, randY;
     int index = 0;
-    while(index < MINE_COUNT){
+    while(index < minecount){
         randX = rand() % gameLength;
         randY = rand() % gameLength;
 

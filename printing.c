@@ -1,7 +1,12 @@
 #include "printing.h"
 
 void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int cursorPositionX, int cursorPositionY, int cheat){
-    printf("+---------------------------------------------------------------+\n");
+
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
 
     for(int i = 0; i < gameLength; i++){
         for(int j = 0; j < gameLength; j++){
@@ -76,7 +81,11 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
         }
     }
 
-    printf("+---------------------------------------------------------------+\n");
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
 }
 
 void printMinesweeper(){
