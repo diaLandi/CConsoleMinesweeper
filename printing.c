@@ -8,7 +8,7 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
     }
     printf("+\n");
 
-    for(int i = 0; i < gameLength; i++){
+    for(int i = 0; i < gameHeight; i++){
         for(int j = 0; j < gameLength; j++){
             if(cursorPositionX == j && cursorPositionY == i){
                 printf("| \033[6;35m \033[0m ", gameField[j][i]);
@@ -72,7 +72,7 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
             }
         }
 
-        if(i < gameLength - 1){
+        if(i < gameHeight - 1){
             printf("|");
             for(int j = 0; j < gameLength - 1; j++){
                 printf("---+");
