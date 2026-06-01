@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [],
-            "compilerPath": "C:/Program Files (x86)/mingw/mingw64/bin/gcc.exe",
+            "compilerPath": "C:\\Users\\diaLa\\Documents\\mingw64\\mingw64\\bin\\gcc.exe",
             "cStandard": "c99",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64"

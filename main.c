@@ -87,15 +87,15 @@ int moveInField(int gameLength, int gameHeight, char gameField[gameLength][gameH
 }
 
 void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight]){
-    for(int x = 0; x < gameLength; x++){
-        for(int y = 0; y < gameHeight; y++){
-            if(gameField[x][y] != 9){
-                int cnt = countBombs(gameLength, gameHeight, gameField, x, y, gameLength, gameHeight);
+    for(int i = 0; i < gameLength; i++){
+        for(int j = 0; j < gameHeight; j++){
+            if(gameField[i][j] != 9){
+                int cnt = countBombs(gameLength, gameHeight, gameField, i, j, gameLength, gameHeight);
 
-                if(gameField[x][y] == '0'){
-                    gameField[x][y] = (char)(cnt + '0');
-                } else if(gameField[x][y] == 0){
-                    gameField[x][y] = cnt;
+                if(gameField[i][j] == '0'){
+                    gameField[i][j] = (char)(cnt + '0');
+                } else if(gameField[i][j] == 0){
+                    gameField[i][j] = cnt;
                 }
             }
         }
