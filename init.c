@@ -54,9 +54,9 @@ int countBombs(int gameLength, int gameHeight, char gameField[gameLength][gameHe
 }
 
 void firstInitArray(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], char initingLetter){
-    for(int i = 0; i < gameLength; i++){
-        for(int j = 0; j < gameHeight; j++){
-            gameField[i][j] = initingLetter;
+    for(int x = 0; x < gameLength; x++){
+        for(int y = 0; y < gameHeight; y++){
+            gameField[x][y] = initingLetter;
         }
     }
 }
@@ -66,7 +66,7 @@ void generateField(int gameLength, int gameHeight, char gameField[gameLength][ga
     int index = 0;
     while(index < minecount){
         randX = rand() % gameLength;
-        randY = rand() % gameLength;
+        randY = rand() % gameHeight;
 
         if(gameField[randX][randY] != 9 && !(randX >= firstPositionX - 1 && randX <= firstPositionX + 1 && randY >= firstPositionY - 1 && randY <= firstPositionY + 1)){
             gameField[randX][randY] = 9;

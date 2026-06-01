@@ -87,15 +87,15 @@ int moveInField(int gameLength, int gameHeight, char gameField[gameLength][gameH
 }
 
 void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight]){
-    for(int i = 0; i < gameLength; i++){
-        for(int j = 0; j < gameLength; j++){
-            if(gameField[j][i] != 9){
-                int cnt = countBombs(gameLength, gameHeight, gameField, j, i, gameLength, gameHeight);
+    for(int x = 0; x < gameLength; x++){
+        for(int y = 0; y < gameHeight; y++){
+            if(gameField[x][y] != 9){
+                int cnt = countBombs(gameLength, gameHeight, gameField, x, y, gameLength, gameHeight);
 
-                if(gameField[j][i] == '0'){
-                    gameField[j][i] = (char)(cnt + '0');
-                } else if(gameField[j][i] == 0){
-                    gameField[j][i] = cnt;
+                if(gameField[x][y] == '0'){
+                    gameField[x][y] = (char)(cnt + '0');
+                } else if(gameField[x][y] == 0){
+                    gameField[x][y] = cnt;
                 }
             }
         }
@@ -104,7 +104,7 @@ void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLeng
 
 void firstMove(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int* valuePosX, int* valuePosY, int* cheat, int minecount){
     *valuePosX = gameLength / 2 - 1;
-    *valuePosY = gameLength / 2 - 1;
+    *valuePosY = gameHeight / 2 - 1;
 
     system("cls");
 
