@@ -227,7 +227,6 @@ void printStartMenu(int pos){
             case 3:
                 printf("Play Game Mode: custom\033[0m\n\n");
                 break;
-
             case 4:
                 printf("Controls\033[0m\n\n");
                 break;
@@ -242,14 +241,28 @@ void printStartMenu(int pos){
 }
 
 void printCustomMenu(int *sizeX, int *sizeY, int *minecount){
+    char choice;
     system("cls");
 
-    printf("Field size X: ");
+    printf("Enter values for the custom game field:\n\n");
+
+    printf("Field size X   : ");
     scanf("%d", sizeX);
 
-    printf("Field size Y: ");
+    printf("Field size Y   : ");
     scanf("%d", sizeY);
 
-    printf("Amount of mines: ");
-    scanf("%d", minecount);
+    do{
+        printf("Which minecount do you want:\n");
+        printf("automaticcaly: 20%c(a)\n coustom (c)\n", '%');
+        printf("Enter a letter:");
+        choice = _getch();
+    }while(choice == 'a' || choice == 'c');
+
+    if(choice == 'c'){
+        printf("Amount of mines: ");
+        scanf("%d", minecount);
+    } else if(choice == 'a'){
+        *minecount = ((*sizeX) * (*sizeY)) / 5;
+    }
 }
