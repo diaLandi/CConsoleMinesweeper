@@ -55,16 +55,16 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
                     printf("\033[42m");
                     if(gameField[j][i] <= 9){
                         if(cheat == 1 && gameField[j][i] == 9){
-                            printf(" B");
+                            printf(" B ");
                         } else {
-                            printf("  ");
+                            printf("   ");
                         }
                     } else if(gameField[j][i] >= 10 && gameField[j][i] <= 19){
-                        printf("\U0001F6A9");//needs UTF-8 and prints the flag
+                        printf("\U0001F6A9 ");//needs UTF-8 and prints the flag
                     } else {
-                        printf(" E");
+                        printf("E%2d", gameField[j][i]);
                     }
-                    printf(" \033[0m");
+                    printf("\033[0m");
 
                     break;
                 }
