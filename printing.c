@@ -1,7 +1,12 @@
 #include "printing.h"
 
 void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int cursorPositionX, int cursorPositionY, int cheat){
-    printf("+---------------------------------------------------------------+\n");
+
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
 
     for(int i = 0; i < gameHeight; i++){
         for(int j = 0; j < gameLength; j++){
@@ -54,8 +59,10 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
                         } else {
                             printf("  ");
                         }
-                    } else {
+                    } else if(gameField[j][i] >= 10 && gameField[j][i] <= 19){
                         printf("\U0001F6A9");//needs UTF-8 and prints the flag
+                    } else {
+                        printf(" E");
                     }
                     printf(" \033[0m");
 
@@ -76,7 +83,11 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
         }
     }
 
-    printf("+---------------------------------------------------------------+\n");
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
 }
 
 void printMinesweeper(){
@@ -106,6 +117,7 @@ void printYouWin(){
     printf("    | $$   \\$$    $$ \\$$    $$       \\$$   $$   $$| $$| $$  | $$\n");
     printf("     \\$$    \\$$$$$$   \\$$$$$$         \\$$$$$\\$$$$  \\$$ \\$$   \\$$\n");
     printf("\n");
+    Sleep(1500);
 }
 
 void printGameOver(){
@@ -119,6 +131,7 @@ void printGameOver(){
     printf(" \\$$    $$ \\$$    $$| $$ | $$ | $$ \\$$     \\       \\$$    $$   \\$$$    \\$$     \\| $$      \n");
     printf("  \\$$$$$$   \\$$$$$$$ \\$$  \\$$  \\$$  \\$$$$$$$        \\$$$$$$     \\$      \\$$$$$$$ \\$$      \n");
     printf("\n");
+    Sleep(1500);
 }
 
 void printMenu(){

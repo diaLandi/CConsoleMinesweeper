@@ -14,6 +14,6 @@ void enableAnsi();
 void init_utf8_konsole();
 
 int countBombs(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int indexX, int indexY, int sizeX, int sizeY);
-void generateField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int firstPositionX, int firstPositionY);
+void generateField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int firstPositionX, int firstPositionY, int minecount);
 void firstInitArray(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], char initingLetter);
 #endif

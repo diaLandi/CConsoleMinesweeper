@@ -6,6 +6,8 @@
 #include "printing.h"
 #include "init.h"
 
+void game(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int minecount);
+
 void placeFlag(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int posX, int posY){
     if(gameField[posX][posY] <= 9){
         gameField[posX][posY] += 10;
@@ -14,7 +16,7 @@ void placeFlag(int gameLength, int gameHeight, char gameField[gameLength][gameHe
     }
 }
 
-void inGameMenu(){
+int inGameMenu(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int minecount){
     int button; 
     int pos = 0;
 
@@ -33,20 +35,21 @@ void inGameMenu(){
                     printControls();
                     break;
                 case 1:
-                    //not yet finished
+                    game(gameLength, gameHeight, gameField, minecount);
                     break;
                 case 2:
                     pos = -1;
                     break;
                 case 3:
-                    main();
+                    return -1;
                     break;
             }
         }
     } while(pos != -1);
+    return 0;
 }
 
-void moveInField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int *positionX, int *positionY, int* cheat){
+int moveInField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int *positionX, int *positionY, int* cheat, int minecount){
     int button;
 
     do{
@@ -74,14 +77,17 @@ void moveInField(int gameLength, int gameHeight, char gameField[gameLength][game
                 *cheat = 0;
             }
         } else if(button == KEY_M){
-            inGameMenu();
+            if (inGameMenu(gameLength, gameHeight, gameField, minecount) == -1){
+                return -1;
+            }
         }
 
     } while(button != KEY_ENTER && button != KEY_SPACE);
+    return 0;
 }
 
 void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLength][gameHeight]){
-    for(int i = 0; i < gameHeight; i++){
+    for(int i = 0; i < gameLength; i++){
         for(int j = 0; j < gameLength; j++){
             if(gameField[j][i] != 9){
                 int cnt = countBombs(gameLength, gameHeight, gameField, j, i, gameLength, gameHeight);
@@ -96,16 +102,18 @@ void refreshBombsOnField(int gameLength, int gameHeight, char gameField[gameLeng
     }
 }
 
-void firstMove(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int* valuePosX, int* valuePosY, int* cheat){
+void firstMove(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int* valuePosX, int* valuePosY, int* cheat, int minecount){
     *valuePosX = gameLength / 2 - 1;
-    *valuePosY = gameHeight / 2 - 1;
+    *valuePosY = gameLength / 2 - 1;
 
     system("cls");
 
     printMinesweeper();
-    moveInField(gameLength, gameHeight, gameField, valuePosX, valuePosY, cheat);
+    if (moveInField(gameLength, gameHeight, gameField, valuePosX, valuePosY, cheat, minecount) == -1){
+        return;
+    }
 
-    generateField(gameLength, gameHeight, gameField, *valuePosX, *valuePosY);
+    generateField(gameLength, gameHeight, gameField, *valuePosX, *valuePosY, minecount);
 
     system("cls");
     gameField[*valuePosX][*valuePosY] = '0';
@@ -179,21 +187,24 @@ int revealField(int gameLength, int gameHeight, char gameField[gameLength][gameH
     return -1;
 }
 
-void 
-game(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int minecount){
+void game(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int minecount){
     int posX = -1, posY = -1;
     int cheat = 0;
     int status = 0;
+    int quit;
 
     firstInitArray(gameLength, gameHeight, gameField, 0);
 
-    firstMove(gameLength, gameHeight, gameField, &posX, &posY, &cheat);
+    firstMove(gameLength, gameHeight, gameField, &posX, &posY, &cheat, minecount);
     
     refreshBombsOnField(gameLength, gameHeight, gameField);
     findFoundFields(gameLength, gameHeight, gameField, gameLength, gameHeight);
     
     do{
-        moveInField(gameLength, gameHeight, gameField, &posX, &posY, &cheat);
+        quit = moveInField(gameLength, gameHeight, gameField, &posX, &posY, &cheat, minecount);
+        if(quit == -1){
+            return; //abbruch wenn Quit
+        }
         status = revealField(gameLength, gameHeight, gameField, posX, posY, gameLength, gameHeight, minecount);
     }while(status == 0);
 
@@ -267,7 +278,7 @@ int main(){
         quit = startMenu(&fieldLength, &fieldHeight, &minecount, &pos);
         char gameField[fieldLength][fieldHeight];
 
-        if (pos >= -12 && pos <= -10){
+        if (pos <= -10 && pos >= -12){
             game(fieldLength, fieldHeight, gameField, minecount);
         }
 
