@@ -228,7 +228,7 @@ int startMenu(int* sizeX, int* sizeY, int* minecount, int* pos){
 
         if((button == KEY_ARROW_UP || button == KEY_W) && *pos > 0){
             (*pos)--;
-        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && *pos < 4){
+        } else if ((button == KEY_ARROW_DOWN || button == KEY_S) && *pos < 5){
             (*pos)++;
         } else if (button == KEY_ENTER || button == KEY_SPACE){
             switch(*pos){
@@ -251,9 +251,13 @@ int startMenu(int* sizeX, int* sizeY, int* minecount, int* pos){
                     *pos = -12;
                     break;
                 case 3:
-                    printControls();
+                    printCustomMenu(sizeX, sizeY, minecount);
+                    *pos = -13;    
                     break;
                 case 4:
+                    printControls();
+                    break;
+                case 5:
                     quit = 1;
                     *pos = -1;
                     break;
@@ -278,7 +282,7 @@ int main(){
         quit = startMenu(&fieldLength, &fieldHeight, &minecount, &pos);
         char gameField[fieldLength][fieldHeight];
 
-        if (pos <= -10 && pos >= -12){
+        if (pos <= -10 && pos >= -13){
             game(fieldLength, fieldHeight, gameField, minecount);
         }
 

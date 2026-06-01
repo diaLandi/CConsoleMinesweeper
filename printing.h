@@ -37,5 +37,6 @@ void printMenu();
 void printInGameMenu(int pos);
 void printControls();
 void printStartMenu(int pos);
+void printCustomMenu(int *sizeX, int *sizeY, int *minecount);
 
 #endif

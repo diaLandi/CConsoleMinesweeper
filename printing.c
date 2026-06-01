@@ -208,7 +208,7 @@ void printStartMenu(int pos){
     printMinesweeper();
     printf("\n\n");
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 6; i++){
         if(pos == i){
             printf("\033[47m");
         }
@@ -223,10 +223,15 @@ void printStartMenu(int pos){
             case 2:
                 printf("Play Game Mode: hard\033[0m\n\n");
                 break;
+
             case 3:
+                printf("Play Game Mode: custom\033[0m\n\n");
+                break;
+
+            case 4:
                 printf("Controls\033[0m\n\n");
                 break;
-            case 4:
+            case 5:
                 printf("Quit game\033[0m\n\n");
                 break;
         }
@@ -234,4 +239,17 @@ void printStartMenu(int pos){
 
     printf("Press Arrow Keys Up/Down to move selection\n");
     printf("Press ENTER / SPACE to select");
+}
+
+void printCustomMenu(int *sizeX, int *sizeY, int *minecount){
+    system("cls");
+
+    printf("Field size X: ");
+    scanf("%d", sizeX);
+
+    printf("Field size Y: ");
+    scanf("%d", sizeY);
+
+    printf("Amount of mines: ");
+    scanf("%d", minecount);
 }
