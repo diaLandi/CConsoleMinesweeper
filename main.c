@@ -211,6 +211,7 @@ void game(int gameLength, int gameHeight, char gameField[gameLength][gameHeight]
     system("cls");
 
     if(status == 1){
+        
         printGameOver();
     } else if (status == 2) {
         printYouWin();
@@ -263,7 +264,7 @@ int startMenu(int* sizeX, int* sizeY, int* minecount, int* pos){
                     break;
             }
         }
-    } while(*pos > -1);
+    } while((*pos) > -1);
     
     return quit;
 }

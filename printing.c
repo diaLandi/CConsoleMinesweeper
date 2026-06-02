@@ -11,7 +11,62 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
     for(int i = 0; i < gameHeight; i++){
         for(int j = 0; j < gameLength; j++){
             if(cursorPositionX == j && cursorPositionY == i){
-                printf("| \033[6;35m \033[0m ", gameField[j][i]);
+                switch (gameField[j][i]){
+                case '0':
+                    printf("|\033[41m\x1b[90m   \033[0m"/*, gameField[j][i]*/);
+                    break;
+
+                case '1':
+                    printf("|\033[41m\x1b[34m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '2':
+                    printf("|\033[41m\x1b[32m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '3':
+                    printf("|\033[41m\x1b[31m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '4':
+                    printf("|\033[41m\x1b[35m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '5':
+                    printf("|\033[41m\x1b[33m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '6':
+                    printf("|\033[41m\x1b[36m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '7':
+                    printf("|\033[41m\x1b[30m %c \033[0m", gameField[j][i]);
+                    break;
+
+                case '8':
+                    printf("|\033[41m\x1b[90m %c \033[0m", gameField[j][i]);
+                    break;
+                
+                default:
+                    printf("\033[0m|");
+                    printf("\033[42m");
+                    if(gameField[j][i] <= 9){
+                        if(cheat == 1 && gameField[j][i] == 9){
+                            printf("\033[41m 💣 \033[0m");
+                        } else {
+                            printf("\033[41m   \033[0m");
+                        }
+                    } else if(gameField[j][i] >= 10 && gameField[j][i] <= 19){
+                        printf("\033[41m🚩 \033[0m"); //needs UTF-8
+
+                    } else {
+                        printf("E%2d", gameField[j][i]);
+                    }
+                    printf("\033[0m");
+
+                    break;
+                }
             } else{
                 switch (gameField[j][i]){
                 case '0':
@@ -55,12 +110,12 @@ void printFieldUser(int gameLength, int gameHeight, char gameField[gameLength][g
                     printf("\033[42m");
                     if(gameField[j][i] <= 9){
                         if(cheat == 1 && gameField[j][i] == 9){
-                            printf(" B ");
+                            printf(" 💣 ");
                         } else {
                             printf("   ");
                         }
                     } else if(gameField[j][i] >= 10 && gameField[j][i] <= 19){
-                        printf("\U0001F6A9 ");//needs UTF-8 and prints the flag
+                        printf("🚩 "); //needs UTF-8
                     } else {
                         printf("E%2d", gameField[j][i]);
                     }
@@ -254,10 +309,10 @@ void printCustomMenu(int *sizeX, int *sizeY, int *minecount){
 
     do{
         printf("Which minecount do you want:\n");
-        printf("automaticcaly: 20%c(a)\n coustom (c)\n", '%');
+        printf("automaticcaly: 20%%(a)\n coustom (c)\n");
         printf("Enter a letter:");
         choice = _getch();
-    }while(choice == 'a' || choice == 'c');
+    }while(choice != 'a' && choice != 'c');
 
     if(choice == 'c'){
         printf("Amount of mines: ");
@@ -265,4 +320,92 @@ void printCustomMenu(int *sizeX, int *sizeY, int *minecount){
     } else if(choice == 'a'){
         *minecount = ((*sizeX) * (*sizeY)) / 5;
     }
+}
+
+void printBombAsEndfterLosing(int gameLength, int gameHeight, char gameField[gameLength][gameHeight], int *minecount){
+    system("cls");
+
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
+
+    for(int i = 0; i < gameHeight; i++){
+        for(int j = 0; j < gameLength; j++){
+            switch (gameField[j][i]){
+            case 9:
+                printf(" 💣 ");
+                break;
+
+            case '9':
+                printf(" 💣 ");
+                break;
+                
+            case '0':
+                printf("|\033[41m\x1b[90m   \033[0m"/*, gameField[j][i]*/);
+                break;
+
+            case '1':
+                printf("|\033[41m\x1b[34m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '2':
+                printf("|\033[41m\x1b[32m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '3':
+                printf("|\033[41m\x1b[31m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '4':
+                printf("|\033[41m\x1b[35m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '5':
+                printf("|\033[41m\x1b[33m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '6':
+                printf("|\033[41m\x1b[36m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '7':
+                printf("|\033[41m\x1b[30m %c \033[0m", gameField[j][i]);
+                break;
+
+            case '8':
+                printf("|\033[41m\x1b[90m %c \033[0m", gameField[j][i]);
+                break;
+            
+            default:
+                printf("\033[0m|");
+                printf("\033[42m");
+                
+                if(gameField[j][i] >= 10 && gameField[j][i] <= 19){
+                    printf("\033[41m🚩 \033[0m"); //needs UTF-8
+
+                } else {
+                    printf("E%2d", gameField[j][i]);
+                }
+                printf("\033[0m");
+
+                break;
+            }
+        }
+
+        if(i < gameHeight - 1){
+            printf("|");
+            for(int j = 0; j < gameLength - 1; j++){
+                printf("---+");
+            }
+            printf("---|\n");
+        }
+    }
+
+    printf("+");
+    for(int i = 0; i < gameLength * 4 - 1; i++){
+        printf("-");
+    }
+    printf("+\n");
 }
