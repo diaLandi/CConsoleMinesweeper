@@ -45,3 +45,5 @@ davor: https://prod.liveshare.vsengsaas.visualstudio.com/join?3CEF82B4C24613B650
 01.06.2026 10:07: https://prod.liveshare.vsengsaas.visualstudio.com/join?554A311DC512F6797E46648CC1627C0381A8
 
 01.06.2026 14:13 https://prod.liveshare.vsengsaas.visualstudio.com/join?8FC96C35F8C423FDD3523408DB3D62583C80
+
+02.06.2026 9:53 https://prod.liveshare.vsengsaas.visualstudio.com/join?9DD419FCDF3FD4867F1E9DBA7255BCABF77C
